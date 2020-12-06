@@ -1,25 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react'
+import './App.css'
+import { Switch, Route } from 'react-router-dom'
+import products from './data'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import Home from './pages/Home'
+import ShoppingCart from './components/ShoppingCart'
+import Error from './pages/Error'
+import NavBar from './components/NavBar'
+
+const App = () => {
+	const [items, setItems] = useState(products)
+	const [shoppingCart, setShoppingCart] = useState([])
+
+	const addToCartBtn = (e) => {
+		setShoppingCart([...shoppingCart, items[e.target.name]])
+	}
+
+	return (
+		<div className="App">
+			<NavBar />
+			<Switch>
+				<Route path="/" exact>
+					<Home products={items} addToCartBtn={addToCartBtn} />
+				</Route>
+				<Route path="/cart">
+					<ShoppingCart
+						shoppingCart={shoppingCart}
+						setShoppingCart={setShoppingCart}
+					/>
+				</Route>
+				<Route>
+					<Error />
+				</Route>
+			</Switch>
+		</div>
+	)
 }
 
-export default App;
+export default App
