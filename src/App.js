@@ -1,19 +1,33 @@
 import React, { useState } from 'react'
-import './App.css'
 import { Switch, Route } from 'react-router-dom'
 import products from './data'
+import './App.css'
 
 import Home from './pages/Home'
 import ShoppingCart from './components/ShoppingCart'
+import Checkout from './components/Checkout'
 import Error from './pages/Error'
 import NavBar from './components/NavBar'
 
 const App = () => {
-	const [items, setItems] = useState(products)
+	const [items] = useState(products)
 	const [shoppingCart, setShoppingCart] = useState([])
 
 	const addToCartBtn = (e) => {
-		setShoppingCart([...shoppingCart, items[e.target.name]])
+		const index = e.target.dataset.add
+		const item = items[index]
+
+		const checkIfAlreadyOnCart = (element) => {
+			return element.id === item.id
+		}
+
+		if (!shoppingCart.some(checkIfAlreadyOnCart)) {
+			item.quantity = 1
+			setShoppingCart([...shoppingCart, item])
+		} else {
+			// TODO: add more quantity when item is already in cart
+			console.log('item already in cart')
+		}
 	}
 
 	return (
@@ -28,6 +42,9 @@ const App = () => {
 						shoppingCart={shoppingCart}
 						setShoppingCart={setShoppingCart}
 					/>
+				</Route>
+				<Route path="/checkout">
+					<Checkout shoppingCart={shoppingCart} />
 				</Route>
 				<Route>
 					<Error />

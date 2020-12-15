@@ -9,7 +9,7 @@ const ProductsShowcase = ({ products, addToCartBtn }) => {
 						<img src={item.image} className="product-image" alt="" />
 						<h3>{item.name}</h3>
 						<p>${item.price}</p>
-						<button name={index} clasName="btn" onClick={addToCartBtn}>
+						<button data-add={index} clasName="btn" onClick={addToCartBtn}>
 							Add to cart
 						</button>
 					</div>
