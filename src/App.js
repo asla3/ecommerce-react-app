@@ -14,6 +14,7 @@ const App = () => {
 	const [shoppingCart, setShoppingCart] = useState([])
 
 	const addToCartBtn = (e) => {
+		const newCart = [...shoppingCart]
 		const index = e.target.dataset.add
 		const item = items[index]
 
@@ -21,12 +22,16 @@ const App = () => {
 			return element.id === item.id
 		}
 
-		if (!shoppingCart.some(checkIfAlreadyOnCart)) {
+		const itemOnCartIndex = shoppingCart.findIndex(checkIfAlreadyOnCart)
+		if (itemOnCartIndex === -1) {
 			item.quantity = 1
-			setShoppingCart([...shoppingCart, item])
+			setShoppingCart([...newCart, item])
 		} else {
-			// TODO: add more quantity when item is already in cart
-			console.log('item already in cart')
+			const itemOnCart = newCart[itemOnCartIndex]
+			if (itemOnCart['quantity'] < 10) {
+				itemOnCart['quantity'] += 1
+				setShoppingCart(newCart)
+			}
 		}
 	}
 
