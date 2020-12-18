@@ -1,4 +1,5 @@
 import React from 'react'
+import { STRIPE_KEY } from '../utils/config'
 
 import {
 	Elements,
@@ -51,7 +52,7 @@ const CheckoutForm = () => {
 }
 
 const Checkout = ({ shoppingCart }) => {
-	const stripePromise = loadStripe('pk_test_JJ1eMdKN0Hp4UFJ6kWXWO4ix00jtXzq5XG')
+	const stripePromise = loadStripe(STRIPE_KEY)
 	if (shoppingCart.length > 0) {
 		return (
 			<Elements stripe={stripePromise}>

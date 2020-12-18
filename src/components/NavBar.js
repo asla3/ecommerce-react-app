@@ -20,7 +20,7 @@ const NavBar = () => {
 				</Menu.Item>
 			</Link>
 
-			<Link to="cart">
+			<Link to="/cart">
 				<Menu.Item
 					name="cart"
 					active={activeItem === 'cart'}

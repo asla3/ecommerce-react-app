@@ -3,10 +3,11 @@ import { Switch, Route } from 'react-router-dom'
 import products from './data'
 import './App.css'
 
-import Home from './pages/Home'
+import Home from './components/Home'
+import ProductPage from './components/ProductPage'
 import ShoppingCart from './components/ShoppingCart'
 import Checkout from './components/Checkout'
-import Error from './pages/Error'
+import Error from './components/Error'
 import NavBar from './components/NavBar'
 
 const App = () => {
@@ -41,6 +42,9 @@ const App = () => {
 			<Switch>
 				<Route path="/" exact>
 					<Home products={items} addToCartBtn={addToCartBtn} />
+				</Route>
+				<Route path="/product/:productId">
+					<ProductPage items={items} />
 				</Route>
 				<Route path="/cart">
 					<ShoppingCart

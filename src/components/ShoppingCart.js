@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 import Total from './Total'
 
@@ -42,13 +43,17 @@ const ShoppingCart = ({ shoppingCart, setShoppingCart }) => {
 					return (
 						<div key={id}>
 							<div className="flex-container">
-								<div className="img-container">
-									<img src={image} alt="" />
-								</div>
-								<div className="item-info">
-									<h2>{name}</h2>
-									<p>${price}</p>
-								</div>
+								<Link to={`/product/${id}`}>
+									<div className="product-container">
+										<div className="img-container">
+											<img src={image} alt="" />
+										</div>
+										<div className="item-info">
+											<h2>{name}</h2>
+											<p>${price}</p>
+										</div>
+									</div>
+								</Link>
 								<div className="remove-quantity">
 									<div className="quantity">
 										<form onSubmit={onSubmit}>
