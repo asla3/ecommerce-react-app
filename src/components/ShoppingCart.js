@@ -1,13 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+import SelectQuantity from './SelectQuantity'
 import Total from './Total'
 
 const ShoppingCart = ({ shoppingCart, setShoppingCart }) => {
-	const onSubmit = (e) => {
-		e.preventDefault()
-	}
-
 	const quantityChange = (e) => {
 		const newCart = [...shoppingCart]
 		const index = e.target.dataset.index
@@ -23,15 +20,6 @@ const ShoppingCart = ({ shoppingCart, setShoppingCart }) => {
 	}
 
 	if (shoppingCart.length > 0) {
-		const options = []
-
-		for (let i = 1; i <= 10; i++) {
-			options.push(
-				<option name="quantity-1" value={i} key={'qsfkajlf' + i}>
-					{i}
-				</option>
-			)
-		}
 		return (
 			<div>
 				<h1>
@@ -56,16 +44,11 @@ const ShoppingCart = ({ shoppingCart, setShoppingCart }) => {
 								</Link>
 								<div className="remove-quantity">
 									<div className="quantity">
-										<form onSubmit={onSubmit}>
-											<select
-												id="quantity"
-												data-index={index}
-												onChange={quantityChange}
-												value={quantity}
-											>
-												{options}
-											</select>
-										</form>
+										<SelectQuantity
+											onChangeFunction={quantityChange}
+											value={quantity}
+											index={index}
+										/>
 									</div>
 									<div className="remove-container">
 										<button

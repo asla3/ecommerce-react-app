@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 
-const ProductPage = ({ items }) => {
+import AddToCartBtn from './AddToCartBtn'
+import SelectQuantity from './SelectQuantity'
+
+const ProductPage = ({ items, addToCartFunc }) => {
 	const [value, setCurrentValue] = useState(1)
 
 	const onChange = (e) => {
@@ -11,9 +14,9 @@ const ProductPage = ({ items }) => {
 
 	let { productId } = useParams()
 	// eslint-disable-next-line
-	const item = items.filter((item) => item.id == productId)
+	const itemIndex = items.findIndex((item) => item.id == productId)
 
-	if (item.length !== 0) {
+	if (itemIndex !== -1) {
 		const options = []
 
 		for (let i = 1; i <= 10; i++) {
@@ -28,22 +31,19 @@ const ProductPage = ({ items }) => {
 			<div id="product-page">
 				<div className="flex-container">
 					<div className="img-container">
-						<img src={item[0].image} alt="" />
+						<img src={items[itemIndex].image} alt="" />
 					</div>
 					<div>
-						<h3>{item[0].name}</h3>
-						<p>${item[0].price}</p>
+						<h3>{items[itemIndex].name}</h3>
+						<p>${items[itemIndex].price}</p>
 						<div className="select-container">
-							<form
-								onSubmit={(e) => {
-									e.preventDefault()
-								}}
-							>
-								<select value={value} onChange={onChange}>
-									{options}
-								</select>
-							</form>
+							<SelectQuantity onChangeFunction={onChange} value={value} />
 						</div>
+						<AddToCartBtn
+							index={itemIndex}
+							quantity={value}
+							addToCartFunc={addToCartFunc}
+						/>
 					</div>
 				</div>
 			</div>

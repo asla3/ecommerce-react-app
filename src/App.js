@@ -9,12 +9,14 @@ import ShoppingCart from './components/ShoppingCart'
 import Checkout from './components/Checkout'
 import Error from './components/Error'
 import NavBar from './components/NavBar'
+import GoToCart from './components/GoToCart'
 
 const App = () => {
 	const [items] = useState(products)
 	const [shoppingCart, setShoppingCart] = useState([])
+	const [itemAddedToCart, setItemAddedToCart] = useState(false)
 
-	const addToCartBtn = (e) => {
+	const addToCartFunc = (e, quantity) => {
 		const newCart = [...shoppingCart]
 		const index = e.target.dataset.add
 		const item = items[index]
@@ -25,15 +27,17 @@ const App = () => {
 
 		const itemOnCartIndex = shoppingCart.findIndex(checkIfAlreadyOnCart)
 		if (itemOnCartIndex === -1) {
-			item.quantity = 1
+			item.quantity = quantity
 			setShoppingCart([...newCart, item])
 		} else {
 			const itemOnCart = newCart[itemOnCartIndex]
 			if (itemOnCart['quantity'] < 10) {
-				itemOnCart['quantity'] += 1
+				// TODO: display popup saying that the max amount of items that can be added to cart has been reached
+				itemOnCart['quantity'] += quantity
 				setShoppingCart(newCart)
 			}
 		}
+		setItemAddedToCart(true)
 	}
 
 	return (
@@ -41,10 +45,10 @@ const App = () => {
 			<NavBar />
 			<Switch>
 				<Route path="/" exact>
-					<Home products={items} addToCartBtn={addToCartBtn} />
+					<Home products={items} addToCartFunc={addToCartFunc} />
 				</Route>
 				<Route path="/product/:productId">
-					<ProductPage items={items} />
+					<ProductPage items={items} addToCartFunc={addToCartFunc} />
 				</Route>
 				<Route path="/cart">
 					<ShoppingCart
@@ -59,6 +63,7 @@ const App = () => {
 					<Error />
 				</Route>
 			</Switch>
+			{itemAddedToCart && <GoToCart setItemAddedToCart={setItemAddedToCart} />}
 		</div>
 	)
 }

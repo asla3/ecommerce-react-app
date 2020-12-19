@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 import AddToCartBtn from './AddToCartBtn'
 
-const ProductsShowcase = ({ products, addToCartBtn }) => {
+const ProductsShowcase = ({ products, addToCartFunc }) => {
 	return (
 		<div>
 			{products.map((item, index) => {
@@ -16,7 +16,7 @@ const ProductsShowcase = ({ products, addToCartBtn }) => {
 								<p>${item.price}</p>
 							</div>
 						</Link>
-						<AddToCartBtn index={index} addToCart={addToCartBtn} />
+						<AddToCartBtn index={index} addToCartFunc={addToCartFunc} />
 					</div>
 				)
 			})}
