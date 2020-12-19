@@ -17,16 +17,6 @@ const ProductPage = ({ items, addToCartFunc }) => {
 	const itemIndex = items.findIndex((item) => item.id == productId)
 
 	if (itemIndex !== -1) {
-		const options = []
-
-		for (let i = 1; i <= 10; i++) {
-			options.push(
-				<option name="quantity-1" value={i} key={'qsfkajlf' + i}>
-					{i}
-				</option>
-			)
-		}
-
 		return (
 			<div id="product-page">
 				<div className="flex-container">
