@@ -5,7 +5,7 @@ const SelectQuantity = ({ index, onChangeFunction, value }) => {
 
 	for (let i = 1; i <= 10; i++) {
 		options.push(
-			<option name="quantity-1" value={i} key={'qsfkajlf' + i}>
+			<option name="quantity" value={i} key={'qsfkajlf' + i}>
 				{i}
 			</option>
 		)

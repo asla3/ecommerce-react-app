@@ -2,20 +2,18 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 const GoToCart = ({ setItemAddedToCart }) => {
+	const handleClick = () => {
+		setItemAddedToCart(false)
+	}
+
 	return (
 		<div>
 			<h2>Item added succesfully!</h2>
 			<div>
-				<Link
-					to="/cart"
-					className="btn"
-					onClick={() => setItemAddedToCart(false)}
-				>
+				<Link to="/cart" className="btn" onClick={handleClick}>
 					Go to cart
 				</Link>
-				<button onClick={() => setItemAddedToCart(false)}>
-					Keep adding items
-				</button>
+				<button onClick={handleClick}>Keep adding items</button>
 			</div>
 		</div>
 	)
